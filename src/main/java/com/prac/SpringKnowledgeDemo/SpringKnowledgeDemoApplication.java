@@ -1,4 +1,4 @@
-package com.prac.SpringKnowledgeDemo;
+package com.prac.springknowledgedemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class SpringKnowledgeDemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringKnowledgeDemoApplication.class, args);
 	}
-
 }
