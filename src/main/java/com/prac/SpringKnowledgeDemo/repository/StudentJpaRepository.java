@@ -1,5 +1,7 @@
 package com.prac.springknowledgedemo.repository;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,12 +42,31 @@ public class StudentJpaRepository {
 	}
 	
 	@Transactional
-	public void insert(Student student) {
-		entityManager.persist(student);
+	public Student save(Student student) {
+		if (student.getStudentId() == null) {
+			entityManager.persist(student);
+			return student;
+		} else {
+			return entityManager.merge(student);
+		}
 	}
 	
 	@Transactional
-	public Student update(Student student) {
-		return entityManager.merge(student);
+	public List<String> efTest(Student student) {
+		List<String> list = new ArrayList<>();
+		list.add("Inside Repository");
+		
+		student = entityManager.merge(student);
+		entityManager.flush();
+		entityManager.detach(student);
+		student.setMarksObtained(new BigDecimal(500));
+		
+		list.add("The current student details are : " + student.toString());
+		//entityManager.refresh(student);
+		//list.add("The current student details after refresh are : " + student.toString());
+		entityManager.detach(student);
+		list.add("The current student details after detach are : " + student.toString());
+		list.add("Going out of Repository");
+		return list;
 	}
 }

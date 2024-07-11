@@ -28,13 +28,6 @@ public class StudentController {
 		return jpaRepository.findById(cId);
 	}
 	
-	/*@RequestMapping(path = "/Courses/Instructor/{iName}")
-	private List<Course> getCourseByInstructor(@PathVariable(name = "iName", required = true) String iName
-											, @RequestParam(name = "qpType", defaultValue = "i") String qpType) {
-		System.out.println("qpType : " + qpType);
-		return repository.findCoursesByInstructor(iName);
-	}*/
-	
 	@RequestMapping(path = "/Students/Marks/Top")
 	private List<Student> getTopTwoStudentByMarksObtained(@RequestParam(name = "number", defaultValue = "2") Integer number) {
 		return jpaRepository.findTopStudents(number);
@@ -46,7 +39,7 @@ public class StudentController {
 		student.setStudentName("Anil");
 		student.setPhoneNumber("9898989898");
 		student.setMarksObtained(new BigDecimal(85));
-		jpaRepository.insert(student);
+		jpaRepository.save(student);
 		return "Number of Rows inserted.";
 	}
 	
@@ -60,6 +53,19 @@ public class StudentController {
 		student.setStudentName(studentName);
 		student.setPhoneNumber(phoneNumber);
 		student.setMarksObtained(new BigDecimal(marksObtained));
-		return "Number of Rows updated : " + jpaRepository.update(student);
+		return "Number of Rows updated : " + jpaRepository.save(student);
+	}
+	
+	@RequestMapping(path = "/Students/EFTest")
+	private List<String> efTest(@RequestParam(name = "studentName", defaultValue = "Updated Student") String studentName
+			, @RequestParam(name = "phoneNumber", defaultValue = "9999999999") String phoneNumber
+			, @RequestParam(name = "marksObtained", defaultValue = "100") Integer marksObtained) {
+		
+		Student student = new Student();
+		student.setStudentName(studentName);
+		student.setPhoneNumber(phoneNumber);
+		student.setMarksObtained(new BigDecimal(marksObtained));
+		
+		return jpaRepository.efTest(student); 
 	}
 }
