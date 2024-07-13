@@ -17,7 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Component
-public class Course implements Serializable {
+public class JdbcCourse implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public String courseId;

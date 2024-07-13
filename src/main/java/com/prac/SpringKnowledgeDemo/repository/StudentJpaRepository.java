@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.prac.springknowledgedemo.beans.Student;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
@@ -23,10 +24,12 @@ public class StudentJpaRepository {
 	
 	public List<Student> findAllStudents() {
 		return entityManager.createNativeQuery("SELECT "
-					+ " student_Id, \r\n"
-					+ " student_Name, \r\n"
+					+ " student_Id,\r\n"
+					+ " student_Name,\r\n"
 					+ " phone_Number,\r\n"
-					+ " marks_Obtained"
+					+ " marks_Obtained,\r\n"
+					+ " created_Time,\r\n"
+					+ " last_Updated_Time\r\n"
 					+ " FROM Student", Student.class).getResultList();
 	}
 	
@@ -35,10 +38,11 @@ public class StudentJpaRepository {
 	}
 	
 	public List<Student> findTopStudents(Integer number) {
-		TypedQuery<Student> namedQuery = entityManager.createNamedQuery("findAllStudents", Student.class);
-		return namedQuery.getResultList().stream()
-										 .sorted(Comparator.comparing(Student :: getMarksObtained).reversed())
-										 .limit(number).collect(Collectors.toList());
+		//TypedQuery<Student> namedQuery = entityManager.createNamedQuery("findAllStudents", Student.class);
+		TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s", Student.class);
+		return query.getResultList().stream()
+									 .sorted(Comparator.comparing(Student :: getMarksObtained).reversed())
+									 .limit(number).collect(Collectors.toList());
 	}
 	
 	@Transactional

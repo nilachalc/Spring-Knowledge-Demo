@@ -65,3 +65,8 @@ VALUES     ('105',
             'Bijayini',
             60,
 			CURRENT_DATE());
+			
+			
+INSERT INTO Student
+(student_id, student_name, phone_number, marks_obtained, created_time, last_updated_time)
+VALUES(1, 'sn', '8989898989', 85, CURRENT_DATE(), CURRENT_DATE());

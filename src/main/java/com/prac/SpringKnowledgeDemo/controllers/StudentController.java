@@ -1,6 +1,7 @@
 package com.prac.springknowledgedemo.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class StudentController {
 		student.setStudentName("Anil");
 		student.setPhoneNumber("9898989898");
 		student.setMarksObtained(new BigDecimal(85));
+		student.setCreatedTime(LocalDateTime.now());
+		student.setLastUpdatedTime(LocalDateTime.now());
 		jpaRepository.save(student);
 		return "Number of Rows inserted.";
 	}

@@ -2,6 +2,10 @@ package com.prac.springknowledgedemo.beans;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,4 +32,8 @@ public class Student implements Serializable {
 	public String studentName;
 	public String phoneNumber;
 	public BigDecimal marksObtained;
+	@CreationTimestamp
+	private LocalDateTime createdTime;
+	@UpdateTimestamp
+	private LocalDateTime lastUpdatedTime;
 }
